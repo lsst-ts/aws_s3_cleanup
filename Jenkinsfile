@@ -8,6 +8,10 @@ properties(
     ]
 )
 pipeline {
+    triggers {
+        // Run the job on the first of every month, between midnight and 1am.
+        cron('H H(0-1) 1 * *')
+    }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
@@ -37,6 +41,9 @@ pipeline {
         }//Release
     }//stages
     post { 
+        always {
+            emailext attachLog: true, body: '', subject: '[Jenkins] AWS Cleanup complete', to: 'rbovill@lsst.org'
+        }
         cleanup {
             deleteDir() /* clean up our workspace */
         }
