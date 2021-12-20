@@ -36,7 +36,7 @@ pipeline {
         }//Daily
         stage('Cleanup release bucket') {
             steps {
-                sh "./s3cmdclearfiles.sh sal-objects/release/ 30d"
+                sh "./s3cmdclearfiles.sh sal-objects/release/ 365d"
             }
         }//Release
     }//stages

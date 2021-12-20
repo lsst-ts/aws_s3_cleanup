@@ -7,7 +7,11 @@ aws s3 ls s3://$1 | grep " DIR " -v | while read -r line;
     createDate=`echo $line|awk {'print $1" "$2'}`
     #createDate=`date -f "%Y-%m-%d %H:%M:%S" "$createDate" +%s`
     createDate=`date -d "$createDate" +%s`
-    olderThan=`date -d "-1 month" +%s`
+    if [[ "$2" =~ "release" ]]; then 
+        olderThan=`date -d "-1 year" +%s`
+    else
+        olderThan=`date -d "-1 month" +%s`
+    fi
     if [[ $createDate -lt $olderThan ]]
       then
         fileName=`echo $line|awk {'print $4'}`
