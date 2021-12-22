@@ -34,11 +34,11 @@ pipeline {
                 sh "./s3cmdclearfiles.sh sal-objects/daily/ 30d"
             }
         }//Daily
-        stage('Cleanup release bucket') {
+        stage('Cleanup releases bucket') {
             steps {
-                sh "./s3cmdclearfiles.sh sal-objects/release/ 365d"
+                sh "./s3cmdclearfiles.sh sal-objects/releases/ 365d"
             }
-        }//Release
+        }//Releases
     }//stages
     post { 
         always {
