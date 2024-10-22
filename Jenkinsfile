@@ -1,5 +1,5 @@
 // Define variables
-def _user="appuser"
+def _user="saluser"
 def _home="/home/" + _user
 
 properties(
@@ -20,7 +20,7 @@ pipeline {
         docker { 
             image 'ts-dockerhub.lsst.org/robotsal:latest'
             args '-w ' + _home + ' -e AWS_ACCESS_KEY_ID=$aws_key_id -e AWS_SECRET_ACCESS_KEY=$aws_secret_key ' + 
-            '-v ${WORKSPACE}:' + _home + '/trunk'
+            '-v ${WORKSPACE}:' + _home + '/repos'
          }
     }
     stages {
